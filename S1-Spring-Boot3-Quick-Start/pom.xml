@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.deya</groupId>
-	<artifactId>bakheet</artifactId>
+	<artifactId>S1-Spring-Boot3-Quick-Start</artifactId>
 	<version>0.1</version>
 	<name>bakheet</name>
 	<description>Spring Boot 3, Spring 6 &amp; Hibernate for Beginners Udemy</description>

@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.deya</groupId>
-	<artifactId>crud</artifactId>
+	<artifactId>S3-Hibernate-JPA-CRUD</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>S3-Hibernate-JPA-CRUD</name>
 	<description>Ssection - 3 Hibernate/JPA CRUD Applcation</description>

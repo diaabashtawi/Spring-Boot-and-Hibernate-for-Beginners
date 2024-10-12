@@ -9,16 +9,16 @@
         <module name="crud" />
         <module name="rest" />
         <module name="S2-SpringCore" />
-        <module name="bakheet" />
         <module name="S5-REST-API-Security" />
+        <module name="S1-Spring-Boot3-Quick-Start" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="S1-Spring-Boot3-Quick-Start" options="-parameters" />
       <module name="S2-SpringCore" options="-parameters" />
       <module name="S5-REST-API-Security" options="-parameters" />
-      <module name="bakheet" options="-parameters" />
       <module name="crud" options="-parameters" />
       <module name="rest" options="-parameters" />
     </option>

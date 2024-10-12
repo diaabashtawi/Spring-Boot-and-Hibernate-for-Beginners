@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.deya</groupId>
-	<artifactId>rest</artifactId>
+	<artifactId>S4-REST-CRUD-API</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>rest</name>
 	<description>Section 4 REST CRUD API project for Spring Boot</description>
