@@ -6,10 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="crud" />
-        <module name="rest" />
         <module name="S2-SpringCore" />
+        <module name="S3-Hibernate-JPA-CRUD" />
         <module name="S5-REST-API-Security" />
+        <module name="S4-REST-CRUD-API" />
         <module name="S1-Spring-Boot3-Quick-Start" />
       </profile>
     </annotationProcessing>
@@ -18,9 +18,9 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="S1-Spring-Boot3-Quick-Start" options="-parameters" />
       <module name="S2-SpringCore" options="-parameters" />
+      <module name="S3-Hibernate-JPA-CRUD" options="-parameters" />
+      <module name="S4-REST-CRUD-API" options="-parameters" />
       <module name="S5-REST-API-Security" options="-parameters" />
-      <module name="crud" options="-parameters" />
-      <module name="rest" options="-parameters" />
     </option>
   </component>
 </project>
