@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <!-- Include the CSS fragment -->
+    <th:block th:replace="~{/layout/fragments :: commonCss}"></th:block>
+</head>
+<body>
+<main>
+    <!-- Include the header fragment -->
+    <th:block th:replace="~{/layout/fragments :: header}"></th:block>
+    <div class="col-lg-6 mx-auto mt-3">
+        <h2 class="m-5">Convert you name to uppercase using Request Param</h2>
+        <form id="checkOutForm" th:action="@{/upperCase}" method="post"  class="needs-validation" role="form">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="name" placeholder="Enter your name" aria-label="name" aria-describedby="basic-addon1">
+            </div>
+            <input class="btn btn-outline-success" type="submit" />
+        </form>
+        <h3></h3>
+    </div>
+    <!-- Include the footer fragment -->
+    <th:block th:replace="~{/layout/fragments :: footer}"></th:block>
+</main>
+<!-- Include the JavaScript fragment -->
+<th:block th:replace="~{layout/fragments :: commonJs}"></th:block>
+</body>
+</html>

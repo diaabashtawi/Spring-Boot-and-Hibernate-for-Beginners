@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <!-- Include the CSS fragment -->
+    <th:block th:replace="~{/layout/fragments :: commonCss}"></th:block>
+</head>
+<body>
+
+
+<main>
+    <!-- Include the header fragment -->
+    <th:block th:replace="~{/layout/fragments :: header}"></th:block>
+
+
+
+
+    <div class="row g-1 m-1 justify-content-center">
+
+        <div class="col-md-7 col-lg-8">
+            <h4 class="mb-3 text-center">User Submit Form</h4>
+            <form id="checkOutForm" method="post" th:action="@{/proccessUserFrom}" th:object="${userFormTwo}" class="needs-validation border border-primary p-3" role="form">
+                <div class="row g-3">
+
+                    <div class="col-sm-12">
+                        <label for="firstName" class="form-label">First name</label>
+                        <input type="text" class="form-control" th:field="*{firstName}" name="firstName" id="firstName">
+                        <div class="alert alert-warning alert-dismissible fade show m-2" th:if="${#fields.hasErrors('firstName')}" role="alert">
+                            <strong  th:errors="*{firstName}"></strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <label for="lastName" class="form-label">Last name</label>
+                        <input type="text" class="form-control" th:field="*{lastName}"  name="lastName" id="lastName">
+                        <div class="alert alert-warning alert-dismissible fade show m-2" th:if="${#fields.hasErrors('lastName')}" role="alert">
+                            <strong th:errors="*{lastName}"></strong>.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <label for="freePasses" class="form-label">freePasses</label>
+                        <input type="number" class="form-control" id="freePasses" th:field="*{freePasses}">
+                        <div class="alert alert-warning alert-dismissible fade show m-2" th:if="${#fields.hasErrors('freePasses')}" role="alert">
+                            <strong th:errors="*{freePasses}"></strong>.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <label for="postalCode" class="form-label">Postal Code </label>
+                        <input type="number" class="form-control" id="postalCode" th:field="*{postalCode}">
+                        <div class="alert alert-warning alert-dismissible fade show m-2" th:if="${#fields.hasErrors('postalCode')}" role="alert">
+                            <strong th:errors="*{postalCode}"></strong>.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" th:field="*{email}" name="email" id="email">
+                        <div class="alert alert-warning alert-dismissible fade show m-2" th:if="${#fields.hasErrors('email')}" role="alert">
+                            <strong th:errors="*{email}"></strong>.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="role" class="form-label">Role</label>
+                        <input type="text" class="form-control" th:field="*{role}" name="role" id="role">
+                    </div>
+
+                    <div class="col-md-12" >
+                        <label for="country" class="form-label">Country</label>
+                        <select class="form-select" th:field="*{country}" name="country" id="country">
+                            <option th:each="tempCountryStat : ${countries}" th:value="${tempCountryStat}" th:text="${tempCountryStat}"></option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a valid country.
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="gender" class="form-label">Gender</label>
+                        <div class="form-check" th:field="*{gender}"  th:each="gen : ${gender}">
+                            <input type="radio" id="gender" th:field="*{gender}" th:value="${gen}"
+                                   th:text="${gen}" class="form-check-input">
+                        </div>
+
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-check" th:field="*{os}" th:each="tempOS : ${os}">
+                            <label for="os" class="form-label">Gender</label>
+                            <input type="checkbox" id="os" class="form-check-input"
+                                th:field="*{os}" th:text="${tempOS}" th:value="${tempOS}">
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-check" >
+                            <label for="courseCode" class="form-label">Course Code </label>
+                            <input type="text" id="courseCode" class="form-control"
+                                   th:field="*{countryCode}">
+                            <div class="alert alert-warning alert-dismissible fade show m-2" th:if="${#fields.hasErrors('countryCode')}" role="alert">
+                                <strong th:errors="*{countryCode}"></strong>.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <hr class="my-4">
+
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Include the footer fragment -->
+    <th:block th:replace="~{/layout/fragments :: footer}"></th:block>
+</main>
+
+
+
+<!-- Include the JavaScript fragment -->
+<th:block th:replace="~{layout/fragments :: commonJs}"></th:block>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <!-- Include the CSS fragment -->
+    <th:block th:replace="~{/layout/fragments :: commonCss}"></th:block>
+</head>
+<body>
+
+<main>
+    <!-- Include the header fragment -->
+    <th:block th:replace="~{/layout/fragments :: header}"></th:block>
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Server Time</h1>
+            <p class="col-md-8 fs-4" th:text="${serverDate}"></p>
+            <a href="/" class="btn btn-primary btn-lg" type="button">Back to Index Page</a>
+        </div>
+    </div>
+    <!-- Include the footer fragment -->
+    <th:block th:replace="~{/layout/fragments :: footer}"></th:block>
+</main>
+
+
+<!-- Include the JavaScript fragment -->
+<th:block th:replace="~{layout/fragments :: commonJs}"></th:block>
+</body>
+</html>

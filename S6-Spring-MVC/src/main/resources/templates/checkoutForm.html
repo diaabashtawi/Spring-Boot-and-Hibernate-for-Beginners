@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <!-- Include the CSS fragment -->
+    <th:block th:replace="~{/layout/fragments :: commonCss}"></th:block>
+</head>
+<body>
+
+
+<main>
+    <!-- Include the header fragment -->
+    <th:block th:replace="~{/layout/fragments :: header}"></th:block>
+    <div class="container">
+
+        <div class="py-3 text-center">
+            <img class="d-block mx-auto mb-2" th:src="@{/img/bootstrap-logo.svg}" alt="" width="72" height="57">
+            <h2>Checkout form</h2>
+            <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form
+                group has a validation state that can be triggered by attempting to submit the form without completing
+                it.</p>
+        </div>
+
+        <div class="row g-1 m-1 justify-content-center">
+            <div class="col-md-7 col-lg-8">
+                <h4 class="mb-3">Billing address</h4>
+                <form id="checkOutForm" th:action="@{/checkout/process}" th:object="${checkout}"  class="needs-validation" role="form">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="firstName" class="form-label">First name</label>
+                            <input type="text" class="form-control" th:field="*{firstName}" name="firstName" id="firstName" required>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="lastName" class="form-label">Last name</label>
+                            <input type="text" class="form-control" th:field="*{lastName}" name="lastName" id="lastName" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="username" class="form-label">Username</label>
+                            <div class="input-group">
+                                <span class="input-group-text">@</span>
+                                <input type="text" class="form-control" th:field="*{username}" name="username" id="username" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" th:field="*{email}" name="email" id="email">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" th:field="*{address}" name="address" id="address" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="address2" class="form-label">Mobile Number </label>
+                            <input type="tel" class="form-control" th:field="*{phone}" name="phone" id="address2"
+                                   placeholder="Apartment or suite">
+                        </div>
+
+                        <div class="col-md-5" >
+                            <label for="country" class="form-label">Country</label>
+                            <select class="form-select" th:form="*{country}" name="country" id="country" required>
+                                <option th:each="country : ${countries}" th:value="${country}" th:text="${country}"></option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a valid country.
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="state" class="form-label">State</label>
+                            <select class="form-select" th:field="*{state}" name="state" id="state" required>
+                                <option th:each="state : ${states}" th:value="${state}" th:text="${state}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="zip" class="form-label">Zip</label>
+                            <input type="number" class="form-control" th:field="*{zip}" name="zip" id="zip" pattern="[0-9]{5}" required>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <h4 class="mb-3">Payment</h4>
+
+                    <div class="my-3">
+                        <div class="form-check">
+                            <input th:field="*{paymentMethod}"  id="credit" name="paymentMethod" value="credit" type="radio" class="form-check-input"
+                                   checked required>
+                            <label class="form-check-label" for="credit">Credit card</label>
+                        </div>
+                        <div class="form-check">
+                            <input th:field="*{paymentMethod}" id="debit" name="paymentMethod" value="debit" type="radio" class="form-check-input"
+                                   required>
+                            <label class="form-check-label" for="debit">Debit card</label>
+                        </div>
+                        <div class="form-check">
+                            <input th:field="*{paymentMethod}" id="paypal" name="paymentMethod" value="payPal" type="radio" class="form-check-input"
+                                   required>
+                            <label class="form-check-label" for="paypal">PayPal</label>
+                        </div>
+                    </div>
+
+                    <div class="row gy-3">
+                        <div class="col-md-6">
+                            <label for="cardName" class="form-label">Name on card</label>
+                            <input type="text" class="form-control" th:field="*{cardName}" id="cardName" name="cardName" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="cardNumber" class="form-label">Credit card number</label>
+                            <input type="text" class="form-control" th:field="*{cardNumber}" id="cardNumber" name="cardNumber" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="expiration" class="form-label">Expiration</label>
+                            <input type="month" class="form-control" th:field="*{cardExpiry}" id="expiration" name="expiration" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <input type="text" class="form-control" th:field="*{cardCVV}" id="cvv" name="cvv" required>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!-- Include the footer fragment -->
+    <th:block th:replace="~{/layout/fragments :: footer}"></th:block>
+</main>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.0/dist/sweetalert2.all.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#checkOutForm").submit(function (event) {
+            event.preventDefault();
+            // console.log(event)
+
+            Swal.fire({
+                title: 'Please wait...',
+                text: 'Submitting your registration...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            $.ajax({
+                url: '/checkout/process',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function (response) {
+                    // console.log(response)
+                    if (response === 'email_exists') {
+                       console.log("email exist")
+                        Swal.fire({
+                            icon: "info",
+                            title: 'You have already registered.',
+                            text: 'Our team will contact you as soon as possible.',
+                            confirmButtonText: 'OK'
+                        });
+                    } else {
+                        $("#checkOutForm")[0].reset();
+                        console.log("Checkout submitted")
+                        Swal.fire({
+                            title: 'Thank you for registering your interest!',
+                            text: 'A member of our team will be in touch with you shortly. Please keep an eye out for updates and notifications in your email.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                },
+                error: function () {
+                   console.log(this.error)
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'There was an issue with your registration.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+<!-- Include the JavaScript fragment -->
+<th:block th:replace="~{layout/fragments :: commonJs}"></th:block>
+</body>
+</html>

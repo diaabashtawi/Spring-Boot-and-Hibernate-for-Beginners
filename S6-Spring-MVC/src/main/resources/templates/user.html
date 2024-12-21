@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <!-- Include the CSS fragment -->
+    <th:block th:replace="~{/layout/fragments :: commonCss}"></th:block>
+</head>
+<body>
+
+
+<main>
+    <!-- Include the header fragment -->
+    <th:block th:replace="~{/layout/fragments :: header}"></th:block>
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">User Controller - Variable Expression Thymeleaf</h1>
+            <p class="col-md-8 fs-4">First name : <strong th:text="${user.firstName}"></strong></p>
+            <p class="col-md-8 fs-4">Last name : <strong th:text="${user.lastName}"></strong></p>
+            <p class="col-md-8 fs-4">Email: <strong th:text="${user.email}"></strong></p>
+            <p class="col-md-8 fs-4">Role : <strong th:text="${user.role}"></strong></p>
+            <p class="col-md-8 fs-4">Gender : <strong th:text="${user.gender}"></strong></p>
+            <a th:href="@{/}" class="btn btn-primary btn-lg" type="button">Back to Index Page</a>
+        </div>
+    </div>
+
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+        <div class="container-fluid py-5" th:object="${user}">
+            <h1 class="display-5 fw-bold">User Controller - Selection Expression Thymeleaf</h1>
+            <p class="col-md-8 fs-4">First name : <strong th:text="*{firstName}"></strong></p>
+            <p class="col-md-8 fs-4">Last name : <strong th:text="*{lastName}"></strong></p>
+            <p class="col-md-8 fs-4">Email: <strong th:text="*{email}"></strong></p>
+            <p class="col-md-8 fs-4">Role : <strong th:text="*{role}"></strong></p>
+            <p class="col-md-8 fs-4">Gender : <strong th:text="*{gender}"></strong></p>
+            <a th:href="@{/}" class="btn btn-primary btn-lg" type="button">Back to Index Page</a>
+        </div>
+    </div>
+
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">User Controller - Message Expression Thymeleaf</h1>
+            <h2 class="col-md-8 fs-4">Application Name : <strong th:text="#{application.name}"></strong></h2>
+            <h4 class="col-md-8 fs-4">Welcome Message : <strong th:text="#{welcome.message}"></strong></h4>
+            <a th:href="@{/}" class="btn btn-primary btn-lg" type="button">Back to Index Page</a>
+        </div>
+    </div>
+
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">User Controller - Link with Parameter Thymeleaf</h1>
+
+            <a th:href="@{/variable-expression/{id}(id=${id})}" class="btn btn-primary btn-lg">
+                Link with Parameter
+            </a>
+
+        </div>
+    </div>
+
+    <!--Thymeleaf Looping or Iteration-->
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">User Controller - Thymeleaf Looping or Iteration</h1>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Gender</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.role}"></td>
+                    <td th:text="${user.gender}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <hr>
+            <p class="display-6 fw-bold">User Controller - Thymeleaf th:each Attributes Status, Index, Even, Odd, First,
+                and Last Variable</p>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Index</th>
+                    <th scope="col">Even</th>
+                    <th scope="col">Odd</th>
+                    <th scope="col">First</th>
+                    <th scope="col">last</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Gender</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user, userStatus: ${users}">
+                    <td th:text="${userStatus.count}"></td>
+                    <td th:text="${userStatus.index}"></td>
+                    <td th:text="${userStatus.even}"></td>
+                    <td th:text="${userStatus.odd}"></td>
+                    <td th:text="${userStatus.first}"></td>
+                    <td th:text="${userStatus.last}"></td>
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.role}"></td>
+                    <td th:text="${user.gender}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--Thymeleaf Looping or Iteration-->
+
+    <!-- Conditionals in Thymeleaf using th:if and th:unless Attributes -->
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+        <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">User Controller - Conditionals in Thymeleaf using th:if and th:unless
+                    Attributes</h1>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Index</th>
+                        <th scope="col">Even</th>
+                        <th scope="col">Odd</th>
+                        <th scope="col">First</th>
+                        <th scope="col">last</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user, userStatus: ${users}">
+                        <td th:text="${userStatus.count}"></td>
+                        <td th:text="${userStatus.index}"></td>
+                        <td th:text="${userStatus.even}"></td>
+                        <td th:text="${userStatus.odd}"></td>
+                        <td th:text="${userStatus.first}"></td>
+                        <td th:text="${userStatus.last}"></td>
+                        <td th:text="${user.firstName}"></td>
+                        <td th:text="${user.lastName}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.role}"></td>
+                        <td th:text="${user.gender}"></td>
+                        <td>
+                            <a href="" th:if="${user.role == 'ADMIN'}" class="btn btn-outline-danger">Delete</a>
+                            <a href="" th:if="${user.role == 'ADMIN'}" class="btn btn-outline-warning">Update</a>
+                            <a href="" th:unless="${user.role == 'ADMIN'}" class="btn btn-outline-primary">View</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Conditionals in Thymeleaf using th:if and th:unless Attributes -->
+    </div>
+    <!-- Conditionals in Thymeleaf using th:if and th:unless Attributes -->
+
+    <!-- Conditionals in Thymeleaf using th:switch and th:case Attributes -->
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">User Controller - Conditionals in Thymeleaf using th:switch and th:case Attributes</h1>
+            <p class="col-md-8 fs-4">First name : <strong th:text="${userSwitch.firstName}"></strong></p>
+
+            <div th:switch="${userSwitch.role}">
+                <p class="col-md-8 fs-4" th:case="'ADMIN'">User is an administrator</p>
+                <p class="col-md-8 fs-4" th:case="'USER'">User </p>
+                <p class="col-md-8 fs-4" th:case="*">No Role</p>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- Conditionals in Thymeleaf using th:switch and th:case Attributes -->
+
+    <div class="row g-1 m-1 justify-content-center">
+
+        <div class="col-md-7 col-lg-8">
+            <h4 class="mb-3 text-center">User Submit Form</h4>
+        </div>
+    </div>
+
+    <!-- Include the footer fragment -->
+    <th:block th:replace="~{/layout/fragments :: footer}"></th:block>
+</main>
+
+
+
+<!-- Include the JavaScript fragment -->
+<th:block th:replace="~{layout/fragments :: commonJs}"></th:block>
+</body>
+</html>

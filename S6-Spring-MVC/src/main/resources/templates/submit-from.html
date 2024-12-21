@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <!-- Include the CSS fragment -->
+    <th:block th:replace="~{/layout/fragments :: commonCss}"></th:block>
+</head>
+<body>
+
+
+<main>
+    <!-- Include the header fragment -->
+    <th:block th:replace="~{/layout/fragments :: header}"></th:block>
+    <div class="px-4 py-5 my-5 text-center" >
+        <h3 th:text="${userFormTwo.firstName}"></h3>
+        <h3 th:text="${userFormTwo.lastName}"></h3>
+        <h3 th:text="${userFormTwo.email}"></h3>
+        <h3 th:text="${userFormTwo.role}"></h3>
+        <h3 th:text="${userFormTwo.gender}"></h3>
+        <h3 th:text="${userFormTwo.country}"></h3>
+        <h3 th:text="${userFormTwo.os}"></h3>
+        <h3 th:text="${userFormTwo.freePasses}"></h3>
+        <h3 th:text="${userFormTwo.postalCode}"></h3>
+    </div>
+
+    <!-- Include the footer fragment -->
+    <th:block th:replace="~{/layout/fragments :: footer}"></th:block>
+</main>
+
+
+<!-- Include the JavaScript fragment -->
+<th:block th:replace="~{layout/fragments :: commonJs}"></th:block>
+</body>
+</html>
