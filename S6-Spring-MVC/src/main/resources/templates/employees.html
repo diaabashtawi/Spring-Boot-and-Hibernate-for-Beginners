@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <!-- Include the CSS fragment -->
+    <th:block th:replace="~{/layout/fragments :: commonCss}"></th:block>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.0/css/dataTables.dataTables.css" />
+</head>
+<body>
+
+
+<main>
+    <!-- Include the header fragment -->
+    <th:block th:replace="~{/layout/fragments :: header}"></th:block>
+
+
+    <!--Thymeleaf Looping or Iteration-->
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">User Controller - Thymeleaf Looping or Iteration</h1>
+            <!-- Button to trigger modal -->
+            <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#formModal">
+                Open Form Modal
+            </button>
+
+            <table id="employee" class="table table-hover text-center">
+                <thead class="">
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="emp : ${employeeList}">
+                    <td th:text="${emp.firstName}"></td>
+                    <td th:text="${emp.lastName}"></td>
+                    <td th:text="${emp.email}"></td>
+                    <td>
+
+                        <form th:action="@{/employees/updateEmployeeForm}"  method="POST">
+                            <input type="hidden" name="employeeId" th:value="${emp.id}">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                        <br>
+                        <form th:action="@{/employees/deleteEmployee}" method="POST">
+                            <input type="hidden" name="employeeId" th:value="${emp.id}">
+                            <button type="submit" class="btn btn-primary"
+                                onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false;">Delete</button>
+                        </form>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <hr>
+
+        </div>
+    </div>
+    <!--Thymeleaf Looping or Iteration-->
+
+    <!-- Create New Employee Model Section -->
+    <!-- Modal -->
+    <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formModalLabel">Submit Your Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form -->
+                    <form id="myForm" th:action="@{/employees/save}" th:object="${newEmployee}">
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-12">
+                                <label for="firstName" class="col-form-label">First Name</label>
+                                <input type="text" class="form-control" th:field="*{firstName}" id="firstName"
+                                       placeholder="First Name">
+                            </div>
+                        </div>
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-12">
+                                <label for="lastName" class="col-form-label">Last Name</label>
+                                <input type="text" class="form-control" th:field="*{lastName}" id="lastName"
+                                       placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-12">
+                                <label for="email" class="col-form-label">Email</label>
+                                <input type="email" class="form-control" th:field="*{email}" id="email"
+                                       placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="modal-footer col-md-12 justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Create New Employee</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Create New Employee Model Section -->
+
+
+
+
+
+    <!-- Include the footer fragment -->
+    <th:block th:replace="~{/layout/fragments :: footer}"></th:block>
+</main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.0/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.datatables.net/2.2.0/js/dataTables.js"></script>
+<script th:src="@{/js/employee.js}"></script>
+<!-- Include the JavaScript fragment -->
+<th:block th:replace="~{layout/fragments :: commonJs}"></th:block>
+</body>
+</html>
