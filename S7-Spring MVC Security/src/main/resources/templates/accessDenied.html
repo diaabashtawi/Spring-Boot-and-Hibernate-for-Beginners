@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring MVC Security</title>
+
+    <!-- Include the CSS fragment -->
+    <th:block th:replace="~{/layout/fragments :: commonCss}"></th:block>
+</head>
+<body>
+
+<main>
+    <div class="container">
+
+        <section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
+            <h1>403</h1>
+            <h2>You are not authorized for this page.</h2>
+            <a class="btn" th:href="@{/}">Back to home</a>
+            <img th:src="@{/img/not-found.svg}" class="img-fluid py-5" alt="Page Not Found">
+        </section>
+
+    </div>
+</main><!-- End #main -->
+<!-- Include the footer fragment -->
+<th:block th:replace="~{/layout/fragments :: footer}"></th:block>
+
+<!-- Include the JavaScript fragment -->
+<th:block th:replace="~{layout/fragments :: commonJs}"></th:block>
+</body>
+</html>

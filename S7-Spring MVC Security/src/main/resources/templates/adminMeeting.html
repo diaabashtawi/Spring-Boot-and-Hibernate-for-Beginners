@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring MVC Security</title>
+
+    <!-- Include the CSS fragment -->
+    <th:block th:replace="~{/layout/fragments :: commonCss}"></th:block>
+</head>
+<body>
+
+<main id="main" class="main">
+    <!-- Include the header fragment -->
+    <th:block th:replace="~{/layout/fragments :: header}"></th:block>
+    <th:block th:replace="~{/layout/fragments :: sidebar}"></th:block>
+
+    <section class="section dashboard">
+        <div class="container my-5">
+            <div class="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-5">
+                <svg class="bi mt-5 mb-3" width="48" height="48"><use xlink:href="#check2-circle"/></svg>
+                <h1 class="text-body-emphasis">Home Page for Section 7 : Spring MVC Security</h1>
+                <h3 class="col-lg-6 mx-auto mb-4">
+                    This page only for Admin users.
+                </h3>
+                <a th:href="@{/}" class="btn btn-primary px-5 mb-5" type="button">
+                    Home Page
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+
+</main>
+<!-- Include the footer fragment -->
+<th:block th:replace="~{/layout/fragments :: footer}"></th:block>
+
+<!-- Include the JavaScript fragment -->
+<th:block th:replace="~{layout/fragments :: commonJs}"></th:block>
+</body>
+</html>

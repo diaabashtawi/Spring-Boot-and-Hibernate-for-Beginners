@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring MVC Security</title>
+
+    <!-- Include the CSS fragment -->
+    <th:block th:replace="~{/layout/fragments :: commonCss}"></th:block>
+</head>
+<body>
+
+<main id="main" class="main">
+    <!-- Include the header fragment -->
+    <th:block th:replace="~{/layout/fragments :: header}"></th:block>
+    <th:block th:replace="~{/layout/fragments :: sidebar}"></th:block>
+
+    <section class="section dashboard">
+        <div class="container my-5">
+            <div class="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-5">
+                <svg class="bi mt-5 mb-3" width="48" height="48">
+                    <use xlink:href="#check2-circle"/>
+                </svg>
+                <h1 class="text-body-emphasis">Home Page for Section 7 : Spring MVC Security</h1>
+                <p class="col-lg-6 mx-auto mb-4">
+                    This faded back jumbotron is useful for placeholder content. It's also a great way to add a bit of
+                    context to a page or section when no content is available and to encourage visitors to take a
+                    specific action.
+                </p>
+
+                <a th:href="@{/leaders}" class="btn btn-primary px-5 mb-5" type="button"
+                   sec:authorize="hasRole('MANAGER')">
+                    Leadership Meeting
+                </a>
+                <a th:href="@{/systems}" class="btn btn-primary px-5 mb-5" type="button"
+                   sec:authorize="hasRole('ADMIN')">
+                    Admin Meeting
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+
+</main>
+<!-- Include the footer fragment -->
+<th:block th:replace="~{/layout/fragments :: footer}"></th:block>
+
+<!-- Include the JavaScript fragment -->
+<th:block th:replace="~{layout/fragments :: commonJs}"></th:block>
+</body>
+</html>
