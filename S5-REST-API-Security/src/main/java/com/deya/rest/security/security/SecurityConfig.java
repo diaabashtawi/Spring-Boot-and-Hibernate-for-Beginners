@@ -29,13 +29,6 @@ public class SecurityConfig {
     }
 
 
-    /*
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }*/
-
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         /* This will restrict the access to the url based on the role */
@@ -43,9 +36,14 @@ public class SecurityConfig {
                 configure
                         .requestMatchers(HttpMethod.GET, "/api/employees").hasRole("EMPLOYEE")
                         .requestMatchers(HttpMethod.GET, "/api/employees/**").hasRole("EMPLOYEE")
+                        .requestMatchers(HttpMethod.GET, "/api/books").hasRole("EMPLOYEE")
+                        .requestMatchers(HttpMethod.GET, "/api/books/**").hasRole("EMPLOYEE")
                         .requestMatchers(HttpMethod.POST, "/api/employees").hasRole("MANAGER")
+                        .requestMatchers(HttpMethod.POST, "/api/books").hasRole("MANAGER")
+                        .requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("MANAGER")
                         .requestMatchers(HttpMethod.PUT, "/api/employees/**").hasRole("MANAGER")
                         .requestMatchers(HttpMethod.DELETE, "/api/employees/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
         );
         // use HTTP Basic authentication
         // disable Cross Site Request Forgery (CSRF)
@@ -54,6 +52,14 @@ public class SecurityConfig {
         http.csrf( csrf -> csrf.disable() );
         return http.build();
     }
+
+
+
+    /*
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }*/
 
 
     /* This method to create users in the InMemory Database */

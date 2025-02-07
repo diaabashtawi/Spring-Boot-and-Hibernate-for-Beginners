@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/employees")
 public class EmployeeRestController {
 
     private EmployeeService employeeService;
@@ -19,14 +19,14 @@ public class EmployeeRestController {
     }
 
     // expose "/employees" and return a list of employees
-    @GetMapping("/employees")
+    @GetMapping
     public List<Employee> findAll() {
         return employeeService.findAll();
     }
 
     // add mapping for GET /employees/{employeeId}
 
-    @GetMapping("/employees/{employeeId}")
+    @GetMapping("/{employeeId}")
     public Employee getEmployee(@PathVariable int employeeId) {
 
         Employee theEmployee = employeeService.findById(employeeId);
@@ -40,7 +40,7 @@ public class EmployeeRestController {
 
     // add mapping for POST /employees - add new employee
 
-    @PostMapping("/employees")
+    @PostMapping
     public Employee addEmployee(@RequestBody Employee theEmployee) {
 
         // also just in case they pass an id in JSON ... set id to 0
@@ -55,7 +55,7 @@ public class EmployeeRestController {
 
     // add mapping for PUT /employees - update existing employee
 
-    @PutMapping("/employees")
+    @PutMapping
     public Employee updateEmployee(@RequestBody Employee theEmployee) {
 
         Employee dbEmployee = employeeService.save(theEmployee);
@@ -65,7 +65,7 @@ public class EmployeeRestController {
 
     // add mapping for DELETE /employees/{employeeId} - delete employee
 
-    @DeleteMapping("/employees/{employeeId}")
+    @DeleteMapping("/{employeeId}")
     public String deleteEmployee(@PathVariable int employeeId) {
 
         Employee tempEmployee = employeeService.findById(employeeId);
