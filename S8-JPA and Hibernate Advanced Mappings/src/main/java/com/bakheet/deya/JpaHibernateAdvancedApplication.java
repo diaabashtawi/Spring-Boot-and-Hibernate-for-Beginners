@@ -1,12 +1,18 @@
 package com.bakheet.deya;
 
-import com.bakheet.deya.dao.AppDAO;
+import com.bakheet.deya.dao.CourseRepository;
+import com.bakheet.deya.dao.InstructorDetailRepository;
+import com.bakheet.deya.dao.InstructorRepository;
+import com.bakheet.deya.entities.Course;
 import com.bakheet.deya.entities.Instructor;
 import com.bakheet.deya.entities.InstructorDetail;
+import com.bakheet.deya.entities.Review;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 @SpringBootApplication
 public class JpaHibernateAdvancedApplication {
@@ -16,13 +22,167 @@ public class JpaHibernateAdvancedApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(AppDAO appDAO) {
+	public CommandLineRunner commandLineRunner(
+			InstructorRepository instructorRepository,
+			InstructorDetailRepository instructorDetailRepository,
+			CourseRepository courseRepository
+	) {
 		return runner-> {
-			createInstructore(appDAO);
+			/*
+			createInstructore(instructorRepository);
+			findInstructor(instructorRepository);
+			deleteInstructor(instructorRepository);
+			findInstructorDetail(instructorDetailRepository);
+			deleteInstructorDetail(instructorDetailRepository);
+			createInstructoreWithCourses(instructorRepository, instructorDetailRepository);
+			findInstructorWithCourses(instructorRepository);
+			findCoursesForInstructor(instructorRepository, courseRepository);
+			findInstructorWithCoursesJoinFetch(instructorRepository);
+			updateInstructor(instructorRepository);
+			updateCourse(courseRepository);
+			deleteInstructor(instructorRepository);
+			deleteCourse(courseRepository);
+			createCourseAndReview(courseRepository);
+			retrieveCoursesAndReviews(courseRepository);
+			 */
+			deleteCourseAndReviews(courseRepository);
+
+
 		};
 	}
 
-	private void createInstructore(AppDAO appDAO) {
+	private void deleteCourseAndReviews(CourseRepository courseRepository) {
+		System.out.println("Deleting Course and Reviews");
+		courseRepository.deleteCourseById(4);
+		System.out.println("Coures and Reviews deleted successfully");
+	}
+
+	private void retrieveCoursesAndReviews(CourseRepository courseRepository) {
+		Course course = courseRepository.findCourseAndReviewByCourseId(4);
+		System.out.println(course);
+		System.out.println(course.getReviews());
+	}
+
+	private void createCourseAndReview(CourseRepository courseRepository) {
+		Course course = new Course("Spring Boot and Hibernate Advanced");
+		course.addReview(new Review("Greate course I loved!"));
+		course.addReview(new Review("Cool course, job well done"));
+		course.addReview(new Review("Amazing course!!"));
+		System.out.println("Saving course: " );
+		System.out.println(course);
+		System.out.println(course.getReviews());
+		courseRepository.saveCourse(course);
+		System.out.println("Courese Created Successfully");
+	}
+
+	private void deleteCourse(CourseRepository courseRepository) {
+		System.out.println("Deleting course...");
+		courseRepository.deleteCourseById(1);
+		System.out.println("Course deleted!");
+	}
+
+	private void updateCourse(CourseRepository courseRepository) {
+		System.out.println("Updating course");
+		Course course = courseRepository.findCourseById(2);
+		course.setTitle("Java Hibernate");
+		courseRepository.updateCourse(course);
+		System.out.println("Updated course");
+	}
+
+	private void updateInstructor(InstructorRepository instructorRepository) {
+		System.out.println("Instructor updated");
+		Instructor instructor = instructorRepository.findInstructorById(3);
+		instructor.setFirstName("John");
+		instructor.setLastName("Smith");
+		instructorRepository.updateInstructor(instructor);
+		System.out.println("Instructor updated");
+	}
+
+
+	private void findInstructorWithCoursesJoinFetch(InstructorRepository instructorRepository) {
+		System.out.println("Finding Instructor with Courses Join Fetch : ");
+		Instructor instructor = instructorRepository.findInstructorByIdJoinFetch(3);
+		System.out.println("Found Instructor with Courses Join Fetch : " + instructor);
+		System.out.println("The associated courses : " + instructor.getCourses());
+		System.out.println("Done!.");
+	}
+
+	private void findCoursesForInstructor(InstructorRepository instructorRepository, CourseRepository courseRepository) {
+		System.out.println("Finding instructor : ");
+		Instructor instructor = instructorRepository.findInstructorById(3);
+		System.out.println("Found instructor : " + instructor);
+		System.out.println("Finding courses for instructor : ");
+		List<Course> courses = courseRepository.findCoursesByInstructorId(3);
+		instructor.setCourses(courses);
+		System.out.println("The associated courses for instructor : " + instructor.getCourses());
+		System.out.println("Done!.");
+	}
+
+	private void findInstructorWithCourses(InstructorRepository instructorRepository) {
+		System.out.println("Finding instructor with courses: ");
+		Instructor instructor = instructorRepository.findInstructorById(3);
+		System.out.println("Instructor: " + instructor);
+		System.out.println("Courses: " + instructor.getCourses());
+		System.out.println("Done!.");
+	}
+
+	private void createInstructoreWithCourses(InstructorRepository instructorRepository, InstructorDetailRepository instructorDetailRepository) {
+		Instructor instructor = new Instructor(
+				"Susan",
+				"Public",
+				"012120123",
+				"suan@gmail.com"
+		);
+
+		InstructorDetail instructorDetail = new InstructorDetail(
+				"https://www.youtube.com",
+				"Video Games"
+		);
+
+		instructor.setInstructorDetail(instructorDetail);
+		Course courseOne = new Course("Spring Boot");
+		Course courseTwo = new Course("MERN Stack");
+
+		instructor.add(courseOne);
+		instructor.add(courseTwo);
+		System.out.println("Saving instructor: " + instructor);
+		System.out.println("The course has been created: " + instructor.getCourses());
+		instructorRepository.save(instructor);
+		System.out.println("Done!");
+
+	}
+
+	private void deleteInstructorDetail(InstructorDetailRepository instructorDetailRepository) {
+		System.out.println("Deleting instructor detail : ");
+		instructorDetailRepository.deleteInstructorDetailById(2);
+		System.out.println("Instructor detail deleted successfully");
+	}
+
+	private void findInstructorDetail(InstructorDetailRepository instructorDetailRepository) {
+		System.out.println("Find Instructor Detail");
+		InstructorDetail instructorDetail = instructorDetailRepository.findInstructorDetailById(1);
+		System.out.println(instructorDetail);
+		System.out.println("Instructor Detail: " + instructorDetail);
+		System.out.println("The associated Instructor : " + instructorDetail.getInstructor());
+		System.out.println("Done!.");
+
+	}
+
+	private void deleteInstructor(InstructorRepository instructorRepository) {
+		System.out.println("Deleting instructor...");
+		instructorRepository.deleteInstructorById(3);
+		System.out.println("Instructor deleted successfully");
+	}
+
+	private void findInstructor(InstructorRepository instructorRepository) {
+		int instructorId = 1;
+		System.out.println("Finding instructor ID: " + instructorId);
+		Instructor instructor = instructorRepository.findInstructorById(instructorId);
+		System.out.println("Instructor : " + instructor);
+		System.out.println("Instructor Details : " + instructor.getInstructorDetail());
+	}
+
+	private void createInstructore(InstructorRepository instructorRepository) {
 		InstructorDetail instructorDetail = new InstructorDetail(
 				"youtube channle link",
 				"Spring boot"
@@ -39,7 +199,7 @@ public class JpaHibernateAdvancedApplication {
 		* because of CascadeType.ALL
 		* */
 		instructor.setInstructorDetail(instructorDetail);
-		appDAO.save(instructor);
+		instructorRepository.save(instructor);
 
 	}
 
