@@ -1,12 +1,10 @@
 package com.bakheet.deya;
 
-import com.bakheet.deya.dao.CourseRepository;
-import com.bakheet.deya.dao.InstructorDetailRepository;
-import com.bakheet.deya.dao.InstructorRepository;
-import com.bakheet.deya.entities.Course;
-import com.bakheet.deya.entities.Instructor;
-import com.bakheet.deya.entities.InstructorDetail;
-import com.bakheet.deya.entities.Review;
+import com.bakheet.deya.repository.CourseRepository;
+import com.bakheet.deya.repository.InstructorDetailRepository;
+import com.bakheet.deya.repository.InstructorRepository;
+import com.bakheet.deya.entities.*;
+import com.bakheet.deya.repository.StudentRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,7 +23,8 @@ public class JpaHibernateAdvancedApplication {
 	public CommandLineRunner commandLineRunner(
 			InstructorRepository instructorRepository,
 			InstructorDetailRepository instructorDetailRepository,
-			CourseRepository courseRepository
+			CourseRepository courseRepository,
+			StudentRepository studentRepository
 	) {
 		return runner-> {
 			/*
@@ -44,11 +43,66 @@ public class JpaHibernateAdvancedApplication {
 			deleteCourse(courseRepository);
 			createCourseAndReview(courseRepository);
 			retrieveCoursesAndReviews(courseRepository);
-			 */
 			deleteCourseAndReviews(courseRepository);
+			createCourseAndStuents(courseRepository);
+			findCourseAndStudents(courseRepository);
+			findStudentAndCourses(studentRepository);
+			addMoreCourseForStudent(studentRepository);
+			 */
+			deleteStudent(studentRepository);
+
+
+
 
 
 		};
+	}
+
+	private void deleteStudent(StudentRepository studentRepository) {
+		System.out.println("Deleting student");
+		studentRepository.deleteStudentById(2);
+		System.out.println("Deleted student successfully");
+	}
+
+	private void addMoreCourseForStudent(StudentRepository studentRepository) {
+		Student student = studentRepository.findStudentAndCoursesByStudentId(2);
+		Course courseOne = new Course("How to Speed Cube");
+		Course courseTwo = new Course("Game Design");
+		student.addCourse(courseOne);
+		student.addCourse(courseTwo);
+		System.out.println("Updating student : " + student);
+		System.out.println("Associated course : " + student.getCourses());
+		studentRepository.updateStudent(student);
+		System.out.println("Done!.");
+	}
+
+	private void findStudentAndCourses(StudentRepository studentRepository) {
+		Student student = studentRepository.findStudentAndCoursesByStudentId(2);
+		System.out.println("Loaded student: " + student);
+		System.out.println("Found courses: " + student.getCourses());
+		System.out.println("Done!.");
+	}
+
+	private void findCourseAndStudents(CourseRepository courseRepository) {
+		Course course = courseRepository.findCourseAndStudentsByCourseId(5);
+		System.out.println("Loaded courese : " + course);
+		System.out.println("Loaded students : " + course.getStudents());
+		System.out.println("Done!.");
+	}
+
+	private void createCourseAndStuents(CourseRepository courseRepository) {
+		Course course = new Course("Spring Boot and Hibernate Advanced Application");
+		Student firstStudent = new Student("John", "Doe", "john@doe.com");
+		Student secondStudent = new Student("Mary", "Public", "mary@public.com");
+
+		course.addStudent(firstStudent);
+		course.addStudent(secondStudent);
+
+		System.out.println("Saving course " + course);
+		System.out.println("Saving student " + course.getStudents());
+
+		courseRepository.saveCourse(course);
+		System.out.println("Course created successfully");
 	}
 
 	private void deleteCourseAndReviews(CourseRepository courseRepository) {

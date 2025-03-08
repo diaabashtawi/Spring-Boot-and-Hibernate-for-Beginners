@@ -1,6 +1,6 @@
-package com.bakheet.deya.dao.impl;
+package com.bakheet.deya.repository.impl;
 
-import com.bakheet.deya.dao.CourseRepository;
+import com.bakheet.deya.repository.CourseRepository;
 import com.bakheet.deya.entities.Course;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Repository
 public class CourseRepositoryImpl implements CourseRepository {
+
     private final EntityManager entityManager;
 
     @Override
@@ -58,6 +59,19 @@ public class CourseRepositoryImpl implements CourseRepository {
                         "join fetch c.reviews " +
                         "where c.id = :id", Course.class
         );
+        query.setParameter("id", id);
+        Course course = query.getSingleResult();
+        return course;
+    }
+
+    @Override
+    public Course findCourseAndStudentsByCourseId(int id) {
+        TypedQuery<Course> query =
+                entityManager.createQuery(
+                        "select c from Course c "
+                        + "join fetch c.students "
+                        + "where c.id = :id", Course.class
+                );
         query.setParameter("id", id);
         Course course = query.getSingleResult();
         return course;

@@ -1,4 +1,4 @@
-package com.bakheet.deya.dao;
+package com.bakheet.deya.repository;
 
 import com.bakheet.deya.entities.InstructorDetail;
 

@@ -1,7 +1,6 @@
-package com.bakheet.deya.dao;
+package com.bakheet.deya.repository;
 
 import com.bakheet.deya.entities.Course;
-import com.bakheet.deya.entities.Instructor;
 
 import java.util.List;
 
@@ -12,4 +11,5 @@ public interface CourseRepository {
     void updateCourse(Course course);
     void deleteCourseById(int id);
     Course findCourseAndReviewByCourseId(int id);
+    Course findCourseAndStudentsByCourseId(int id);
 }

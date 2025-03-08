@@ -1,6 +1,6 @@
-package com.bakheet.deya.dao.impl;
+package com.bakheet.deya.repository.impl;
 
-import com.bakheet.deya.dao.InstructorDetailRepository;
+import com.bakheet.deya.repository.InstructorDetailRepository;
 import com.bakheet.deya.entities.InstructorDetail;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
